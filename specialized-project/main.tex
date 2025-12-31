@@ -54,12 +54,18 @@
 
 \coverpage
 
-\frontmatter
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+}
 \subfile{chapters/front/thanks}
 \clearpage
 \tableofcontents
-\clearpage
-\subfile{chapters/front/glossaries}
 \clearpage
 \listoffigures
 \clearpage
@@ -68,7 +74,7 @@
 
 
 \setcounter{secnumdepth}{3}
-\mainmatter
+% \mainmatter* % Removed to prevent page counter reset
 \counterwithin{equation}{section}
 \counterwithin{table}{subsection}
 \counterwithin{figure}{subsection}
