@@ -4,15 +4,11 @@
 Nghiên cứu đã hoàn thành việc xây dựng và kiểm chứng một Adaptive Learning Engine ổn định cho môn Toán THPT. Thông qua các kịch bản thực nghiệm, nhóm tác giả đã xác định được bộ tham số tối ưu với \textbf{Hệ số K=24} và Chiến lược \textbf{Lowest\_Elo}, giúp cân bằng giữa độ nhạy của thuật toán và sự vững chắc của lộ trình học tập. Ứng dụng MVP minh họa đã chứng minh tính khả thi kỹ thuật của việc tích hợp mô hình này vào môi trường Web hiện đại.
 
 \section{Những hạn chế của đề tài}
-Bên cạnh các kết quả đạt được, hệ thống hiện tại vẫn tồn tại hạn chế về mặt cơ chế điều hướng:
-\begin{itemize}
-    \item \textbf{Cơ chế Forward-only:} Hệ thống hiện chỉ hỗ trợ cơ chế tiến. Trong trường hợp học sinh bị giảm điểm Elo quá sâu ở một concept, hệ thống buộc học sinh phải thực hành lặp lại liên tục concept đó để phục hồi điểm số mà chưa có cơ chế "quay lui" (Backward Remediation) để gợi ý lại các kiến thức tiền đề thấp hơn nhằm củng cố gốc rễ vấn đề.
-    \item \textbf{Dữ liệu kiểm thử:} Bộ dữ liệu câu hỏi và người dùng hiện tại mới chỉ dừng lại ở quy mô thử nghiệm, chưa được triển khai diện rộng để đánh giá các yếu tố tâm lý hành vi phức tạp.
-\end{itemize}
+Bên cạnh các kết quả đạt được, hệ thống học tập thích ứng được đề xuất vẫn tồn tại một số hạn chế nhất định về mặt cơ chế điều hướng và phạm vi đánh giá. Trước hết, hệ thống hiện tại chỉ hỗ trợ cơ chế điều hướng theo hướng tiến (forward-only). Trong trường hợp năng lực của học sinh tại một concept giảm sâu và kéo dài, hệ thống buộc người học phải tiếp tục thực hành lặp lại tại concept đó để phục hồi điểm Elo, mà chưa hỗ trợ cơ chế truy vết ngược (Backward Remediation) nhằm gợi ý quay lại các kiến thức tiền đề thấp hơn để củng cố nền tảng. Bên cạnh đó, bộ dữ liệu kiểm thử về câu hỏi và hồ sơ người học hiện mới dừng lại ở quy mô thử nghiệm, do đó chưa cho phép đánh giá đầy đủ các yếu tố hành vi học tập phức tạp như động lực, mức độ kiên trì hay xu hướng bỏ cuộc của người học trong môi trường thực tế.
 
 \section{Hướng phát triển trong tương lai}
-Để khắc phục các hạn chế trên và nâng cao trải nghiệm, các hướng phát triển tiếp theo bao gồm:
-\begin{enumerate}
-    \item \textbf{Xây dựng cơ chế Backward Remediation:} Phát triển thuật toán truy vết ngược đồ thị kiến thức để tìm ra các concept tiền đề bị hổng khi học sinh gặp khó khăn kéo dài tại một điểm nút.
-    \item \textbf{Trò chơi hóa (Gamification):} Tích hợp các yếu tố game để giảm bớt áp lực và sự nhàm chán khi học sinh phải thực hiện các bài tập củng cố lặp lại.
-\end{enumerate}
+Để khắc phục các hạn chế nêu trên và tiếp tục hoàn thiện hệ thống, đề tài có thể được mở rộng theo các hướng sau:
+
+Thứ nhất, xây dựng cơ chế Backward Remediation. Hệ thống có thể được phát triển thêm cơ chế truy vết ngược trên đồ thị kiến thức nhằm phát hiện các concept tiền đề có khả năng bị hổng khi người học gặp khó khăn kéo dài tại một concept cụ thể. Thay vì chỉ yêu cầu học sinh lặp lại liên tục cùng một nội dung, hệ thống sẽ chủ động điều hướng người học quay về các kiến thức nền tảng liên quan, từ đó củng cố gốc rễ của vấn đề và cải thiện hiệu quả học tập.
+
+Thứ hai, tích hợp cơ chế ôn tập thích ứng theo thời gian (Adaptive Review \& Spaced Reinforcement). Các concept đã đạt mức mastery có thể được đưa trở lại lộ trình học tập sau một khoảng thời gian nhất định, với tần suất phụ thuộc vào mức độ ổn định của điểm Elo và vai trò của concept trong đồ thị kiến thức. Cơ chế này nhằm giảm hiện tượng quên kiến thức theo thời gian, đồng thời giúp duy trì và củng cố năng lực dài hạn của người học trong môi trường học tập thích ứng.
