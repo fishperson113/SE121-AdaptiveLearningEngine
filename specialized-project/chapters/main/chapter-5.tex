@@ -12,17 +12,17 @@ Hệ thống được xây dựng theo kiến trúc 3 tầng hiện đại:
 \end{itemize}
 
 \section{Mô tả các chức năng chính của demo}
-Dựa trên giao diện thực tế của ứng dụng, các chức năng chính được chia thành hai phân hệ:
+Dựa trên giao diện thực tế của ứng dụng, các chức năng chính được chia thành hai giao diện:
 
-\subsection{Phân hệ Học sinh (Student Dashboard)}
+\subsection{Giao diện Học sinh (Student Dashboard)}
 Giao diện dành cho học sinh tập trung vào việc hiển thị trạng thái năng lực và lộ trình cá nhân hóa:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Hồ sơ năng lực:} Sử dụng biểu đồ tiến trình vòng tròn (Mastery Profile) để hiển thị mức độ bao phủ kiến thức.
     \item \textbf{Bản đồ học tập:} Trực quan hóa cây kiến thức và trạng thái từng concept.
     \item \textbf{Gợi ý thông minh:} Hiển thị câu hỏi được Engine lựa chọn dựa trên chiến lược Lowest\_Elo (ưu tiên vùng kiến thức yếu nhất trong tập sẵn sàng).
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{graphics/chapter-5/student_dashboard.png}
     \caption{Giao diện chính của Dashboard học sinh}
@@ -31,27 +31,27 @@ Giao diện dành cho học sinh tập trung vào việc hiển thị trạng th
 
 \subsubsection{Giao diện làm bài tương tác}
 Hình \ref{fig:student_quiz} minh họa quá trình hệ thống thích ứng trong thời gian thực:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Adaptive Selection:} Câu hỏi được sinh ra (fetch) từ API dựa trên năng lực hiện tại.
-    \item \textbf{Phản hồi tức thì:} Ngay sau khi học sinh submit, hệ thống tính toán xác suất đúng/sai và cập nhật Elo ngay lập tức (thể hiện qua các thông số debug log bên phải màn hình nếu ở chế độ dev).
+    \item \textbf{Phản hồi tức thì:} Ngay sau khi học sinh submit, hệ thống tính toán xác suất đúng/sai và cập nhật Elo ngay lập tức.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{graphics/chapter-5/student_question.png}
     \caption{Giao diện tương tác làm bài và phản hồi kết quả}
     \label{fig:student_quiz}
 \end{figure}
 
-\subsection{Phân hệ Giáo viên (Teacher Analytics)}
+\subsection{Giao diện Giáo viên (Teacher Analytics)}
 Cung cấp cái nhìn tổng quát về tiến độ của cả lớp và từng cá nhân:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Tổng quan lớp học:} Cho phép giáo viên theo dõi nhanh danh sách học sinh. 
-    \item \textbf{Phân tích quỹ đạo (Learning Trajectory):} Biểu đồ minh chứng cho việc giảm "Zigzag giả" và sự tiến bộ ổn định.
+    \item \textbf{Phân tích quỹ đạo (Learning Trajectory):} Biểu đồ trực quan hóa lộ trình học tập, giúp giáo viên dễ dàng theo dõi và đưa ra những nhận xét về xu hướng tiến bộ của học sinh.
     \item \textbf{Nhật ký tham số:} Dữ liệu audit chi tiết cho từng bước học tập.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{graphics/chapter-5/teacher_dashboard.png}
     \caption{Giao diện Dashboard giáo viên và Phân tích quỹ đạo học tập}

@@ -17,7 +17,7 @@ Giai đoạn 2: \textbf{Ứng dụng thử nghiệm (Application Testing)}. Hệ
 
 \subsection{Hồ sơ Người học (Profiles)}
 Ba nhóm hồ sơ tiêu biểu được thiết lập để đại diện cho các đối tượng học sinh khác nhau:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Học sinh Giỏi đều:} Có xác suất trả lời đúng cao ở hầu hết các concept.
     \item \textbf{Học sinh Yếu đều:} Có năng lực thấp đồng đều ở mọi chương.
     \item \textbf{Học sinh Yếu Hàm số:} Có năng lực trung bình nhưng hổng kiến thức nghiêm trọng tại chương Hàm số.
@@ -28,7 +28,7 @@ Trên môi trường mô phỏng, hệ thống thực hiện chạy lưới tham
 
 \subsection{Chiến lược gợi ý}
 Hai chiến lược chính được đưa vào so sánh:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Chiến lược Lowest\_Elo:} Ưu tiên gợi ý các concept mà học sinh có điểm năng lực thấp nhất trong tập sẵn sàng (Ready Set).
     \item \textbf{Chiến lược Cross\_Chapter:} Ưu tiên mở khóa các chương mới thông qua các cạnh liên kết liên chương.
 \end{itemize}
@@ -43,7 +43,7 @@ Dựa trên kết quả mô phỏng và kiểm thử, nhóm nghiên cứu đã c
 
 \subsection{Cấu hình Engine tối ưu (Final Configuration)}
 Dựa trên kết quả thực nghiệm, nhóm nghiên cứu đã xác định bộ tham số hoạt động ổn định nhất:
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Hệ số K = 24 (Constant):} Mang lại sự cân bằng, giúp biểu đồ mượt mà và phản ánh chính xác quá trình tích lũy kiến thức.
     \item \textbf{Ngưỡng thành thạo = 1250:} Điểm xác nhận nắm vững kiến thức tối ưu.
     \item \textbf{Chiến lược Lowest\_Elo:} Giúp củng cố vùng kiến thức yếu nhất, hạn chế "vỡ lộ trình" (số lần nhảy chương giảm từ ~26 xuống ~7 lần ở học sinh yếu đều).
@@ -61,7 +61,7 @@ Với cấu hình tối ưu, hệ thống thể hiện khả năng cải thiện
 
 \subsection{Giảm thiểu hiện tượng "Zigzag giả"}
 Nghiên cứu phân biệt giữa Zigzag "tốt" (khám phá kiến thức) và Zigzag "xấu" (nhiễu tín hiệu). Đồ thị Advanced giúp giảm mạnh hiện tượng Zigzag "xấu":
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}
     \item \textbf{Học sinh Yếu đều:} Giảm 50\% (từ 14 xuống 7 lần nhảy chương).
     \item \textbf{Học sinh Yếu Hàm số:} Giảm 90\% (từ 29 xuống 3 lần), neo học sinh vào đúng lỗ hổng cần lấp.
 \end{itemize}
