@@ -15,7 +15,7 @@ Giai đoạn 2: \textbf{Ứng dụng thử nghiệm (Application Testing)}. Hệ
 \section{Dữ liệu và kịch bản thử nghiệm}
 Để đánh giá hiệu quả của hệ thống, nhóm nghiên cứu thiết lập các thành phần dữ liệu và kịch bản như sau:
 
-\textbf{1. Hồ sơ Người học (Profiles):} 
+\subsection{Hồ sơ Người học (Profiles)}
 Ba nhóm hồ sơ tiêu biểu được thiết lập để đại diện cho các đối tượng học sinh khác nhau:
 \begin{itemize}
     \item \textbf{Học sinh Giỏi đều:} Có xác suất trả lời đúng cao ở hầu hết các concept.
@@ -23,10 +23,10 @@ Ba nhóm hồ sơ tiêu biểu được thiết lập để đại diện cho c�
     \item \textbf{Học sinh Yếu Hàm số:} Có năng lực trung bình nhưng hổng kiến thức nghiêm trọng tại chương Hàm số.
 \end{itemize}
 
-\textbf{2. Kịch bản Phân tích Độ nhạy (Sensitivity Analysis):}
+\subsection{Kịch bản Phân tích Độ nhạy (Sensitivity Analysis)}
 Trên môi trường mô phỏng, hệ thống thực hiện chạy lưới tham số (Grid Search) để tìm ra cấu hình tối ưu, bao gồm việc thay đổi Ngưỡng thành thạo (Mastery Threshold) và Hệ số K.
 
-\textbf{3. Chiến lược gợi ý:}
+\subsection{Chiến lược gợi ý}
 Hai chiến lược chính được đưa vào so sánh:
 \begin{itemize}
     \item \textbf{Chiến lược Lowest\_Elo:} Ưu tiên gợi ý các concept mà học sinh có điểm năng lực thấp nhất trong tập sẵn sàng (Ready Set).
@@ -41,12 +41,46 @@ Hai chiến lược chính được đưa vào so sánh:
 \section{Kết quả thực nghiệm}
 Dựa trên kết quả mô phỏng và kiểm thử, nhóm nghiên cứu đã chốt lại cấu hình Engine cuối cùng như sau:
 
-\textbf{1. Cấu hình Engine tối ưu (Final Configuration):}
+\subsection{Cấu hình Engine tối ưu (Final Configuration)}
+Dựa trên kết quả thực nghiệm, nhóm nghiên cứu đã xác định bộ tham số hoạt động ổn định nhất:
 \begin{itemize}
-    \item \textbf{Hệ số K = 24 (Constant):} Việc sử dụng K cố định ở mức 24 mang lại sự cân bằng tốt nhất, giúp biểu đồ năng lực mượt mà hơn so với K=32 (gây dao động lớn) và phản ứng nhanh hơn so với K=16.
-    \item \textbf{Ngưỡng thành thạo = 1250:} Mức điểm này đủ tin cậy để xác nhận học sinh đã nắm vững kiến thức mà không giữ chân họ quá lâu.
-    \item \textbf{Chiến lược Lowest\_Elo:} Đây là chiến lược được lựa chọn chính thức. Kết quả thực nghiệm cho thấy chiến lược \textit{Cross\_Chapter} khiến học sinh rời khỏi cụm kiến thức (cluster) hiện tại quá sớm, dẫn đến hiện tượng "vỡ lộ trình" khi nền tảng chưa vững. Ngược lại, \textit{Lowest\_Elo} giúp củng cố vùng kiến thức yếu nhất trước khi tiến xa hơn thông qua chỉ số xác suất kỳ vọng (\textit{expected\_rate} - đã hiệu chỉnh tham số đoán mò) giúp giảm thiểu sai số.
+    \item \textbf{Hệ số K = 24 (Constant):} Mang lại sự cân bằng, giúp biểu đồ mượt mà và phản ánh chính xác quá trình tích lũy kiến thức.
+    \item \textbf{Ngưỡng thành thạo = 1250:} Điểm xác nhận nắm vững kiến thức tối ưu.
+    \item \textbf{Chiến lược Lowest\_Elo:} Giúp củng cố vùng kiến thức yếu nhất, hạn chế "vỡ lộ trình" (số lần nhảy chương giảm từ ~26 xuống ~7 lần ở học sinh yếu đều).
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/chapter-4/Strategy Comparison – lowest_elo vs cross_chapter_unlock.png}
+    \caption{So sánh Chapter Switches giữa các chiến lược gợi ý}
+    \label{fig:strategy_impact}
+\end{figure}
+
 \section{Phân tích và thảo luận kết quả}
-Với cấu hình \textbf{K=24} và chiến lược \textbf{Lowest\_Elo}, hệ thống thể hiện khả năng giảm thiểu hiện tượng "Zigzag giả" (nhiễu tín hiệu năng lực). Biểu đồ năng lực phản ánh trung thực quá trình tích lũy kiến thức: đi lên ổn định với học sinh giỏi và đi ngang/dao động nhẹ để củng cố với học sinh yếu. Chiến lược Lowest\_Elo đảm bảo học sinh luôn hoạt động trong vùng phát triển gần nhất (ZPD - Zone of Proximal Development: Vùng phát triển gần nhất) phù hợp với năng lực thực tế.
+Với cấu hình tối ưu, hệ thống thể hiện khả năng cải thiện lộ trình qua hai khía cạnh:
+
+\subsection{Giảm thiểu hiện tượng "Zigzag giả"}
+Nghiên cứu phân biệt giữa Zigzag "tốt" (khám phá kiến thức) và Zigzag "xấu" (nhiễu tín hiệu). Đồ thị Advanced giúp giảm mạnh hiện tượng Zigzag "xấu":
+\begin{itemize}
+    \item \textbf{Học sinh Yếu đều:} Giảm 50\% (từ 14 xuống 7 lần nhảy chương).
+    \item \textbf{Học sinh Yếu Hàm số:} Giảm 90\% (từ 29 xuống 3 lần), neo học sinh vào đúng lỗ hổng cần lấp.
+\end{itemize}
+Hình \ref{fig:zigzag_compare} cho thấy rõ sự khác biệt này. Trong khi Baseline (màu cam) có số lần chuyển chương cao bất thường do thiếu ràng buộc chặt chẽ, Advanced graph (màu xanh) duy trì được sự ổn định cần thiết.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/chapter-4/Chapter Switches – Baseline vs Advanced.png}
+    \caption{So sánh hiện tượng Zigzag/Nhảy chương giữa Baseline và Advanced}
+    \label{fig:zigzag_compare}
+\end{figure}
+
+\subsection{Kiểm soát kích thước Ready Set}
+Đồ thị Advanced đảm bảo quy mô tập sẵn sàng ổn định, giúp tập trung vào Vùng phát triển gần nhất.
+Hình \ref{fig:ready_set_size} minh họa phân phối kích thước tập sẵn sàng (Ready Set Size). Chiến lược Lowest\_Elo giữ kích thước này ở mức thấp và ổn định (dao động thấp), giúp học sinh tập trung vào một nhóm nhỏ các khái niệm phù hợp nhất thay vì bị phân tán bởi quá nhiều lựa chọn như các chiến lược khác.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/chapter-4/Ready Set Size Distribution.png}
+    \caption{Phân phối kích thước Ready Set theo chiến lược}
+    \label{fig:ready_set_size}
+\end{figure}
