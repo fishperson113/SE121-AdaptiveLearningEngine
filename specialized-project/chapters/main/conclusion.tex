@@ -1,10 +1,18 @@
 \chapter{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
 
 \section{Kết luận}
-\blindtext
+Nghiên cứu đã hoàn thành việc xây dựng và kiểm chứng một Adaptive Learning Engine ổn định cho môn Toán THPT. Thông qua các kịch bản thực nghiệm, nhóm tác giả đã xác định được bộ tham số tối ưu với \textbf{Hệ số K=24} và Chiến lược \textbf{Lowest\_Elo}, giúp cân bằng giữa độ nhạy của thuật toán và sự vững chắc của lộ trình học tập. Ứng dụng MVP minh họa đã chứng minh tính khả thi kỹ thuật của việc tích hợp mô hình này vào môi trường Web hiện đại.
 
 \section{Những hạn chế của đề tài}
-\blindtext
+Bên cạnh các kết quả đạt được, hệ thống hiện tại vẫn tồn tại hạn chế về mặt cơ chế điều hướng:
+\begin{itemize}
+    \item \textbf{Cơ chế Forward-only:} Hệ thống hiện chỉ hỗ trợ cơ chế tiến. Trong trường hợp học sinh bị giảm điểm Elo quá sâu ở một concept, hệ thống buộc học sinh phải thực hành lặp lại liên tục concept đó để phục hồi điểm số mà chưa có cơ chế "quay lui" (Backward Remediation) để gợi ý lại các kiến thức tiền đề thấp hơn nhằm củng cố gốc rễ vấn đề.
+    \item \textbf{Dữ liệu kiểm thử:} Bộ dữ liệu câu hỏi và người dùng hiện tại mới chỉ dừng lại ở quy mô thử nghiệm, chưa được triển khai diện rộng để đánh giá các yếu tố tâm lý hành vi phức tạp.
+\end{itemize}
 
 \section{Hướng phát triển trong tương lai}
-\blindtext
+Để khắc phục các hạn chế trên và nâng cao trải nghiệm, các hướng phát triển tiếp theo bao gồm:
+\begin{enumerate}
+    \item \textbf{Xây dựng cơ chế Backward Remediation:} Phát triển thuật toán truy vết ngược đồ thị kiến thức để tìm ra các concept tiền đề bị hổng khi học sinh gặp khó khăn kéo dài tại một điểm nút.
+    \item \textbf{Trò chơi hóa (Gamification):} Tích hợp các yếu tố game để giảm bớt áp lực và sự nhàm chán khi học sinh phải thực hiện các bài tập củng cố lặp lại.
+\end{enumerate}

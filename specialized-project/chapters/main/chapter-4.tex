@@ -1,16 +1,52 @@
 \chapter{THỰC NGHIỆM VÀ ĐÁNH GIÁ}
 
 \section{Môi trường và công cụ thực nghiệm}
-\blindtext
+Quá trình thực nghiệm của dự án được chia làm hai giai đoạn rõ rệt nhằm đảm bảo tính chính xác của các tham số trước khi đưa vào ứng dụng thực tế.
+
+Giai đoạn 1: \textbf{Mô phỏng (Simulation)}. Nhóm nghiên cứu sử dụng ngôn ngữ lập trình Python để xây dựng kịch bản mô phỏng thuật toán. Môi trường này cho phép chạy lặp lại quá trình học của hàng nghìn học sinh giả định để định chuẩn các tham số cốt lõi.
+
+Giai đoạn 2: \textbf{Ứng dụng thử nghiệm (Application Testing)}. Hệ thống được triển khai dưới dạng ứng dụng MVP (Minimum Viable Product Full-stack) sử dụng:
+\begin{itemize}
+    \item \textbf{Backend:} Python FastAPI xử lý logic thích ứng.
+    \item \textbf{Database:} Nền tảng Supabase (PostgreSQL) lưu trữ dữ liệu.
+    \item \textbf{Frontend:} Giao diện tương tác người dùng ReactJS.
+\end{itemize}
 
 \section{Dữ liệu và kịch bản thử nghiệm}
-\blindtext
+Để đánh giá hiệu quả của hệ thống, nhóm nghiên cứu thiết lập các thành phần dữ liệu và kịch bản như sau:
+
+\textbf{1. Hồ sơ Người học (Profiles):} 
+Ba nhóm hồ sơ tiêu biểu được thiết lập để đại diện cho các đối tượng học sinh khác nhau:
+\begin{itemize}
+    \item \textbf{Học sinh Giỏi đều:} Có xác suất trả lời đúng cao ở hầu hết các concept.
+    \item \textbf{Học sinh Yếu đều:} Có năng lực thấp đồng đều ở mọi chương.
+    \item \textbf{Học sinh Yếu Hàm số:} Có năng lực trung bình nhưng hổng kiến thức nghiêm trọng tại chương Hàm số.
+\end{itemize}
+
+\textbf{2. Kịch bản Phân tích Độ nhạy (Sensitivity Analysis):}
+Trên môi trường mô phỏng, hệ thống thực hiện chạy lưới tham số (Grid Search) để tìm ra cấu hình tối ưu, bao gồm việc thay đổi Ngưỡng thành thạo (Mastery Threshold) và Hệ số K.
+
+\textbf{3. Chiến lược gợi ý:}
+Hai chiến lược chính được đưa vào so sánh:
+\begin{itemize}
+    \item \textbf{Chiến lược Lowest\_Elo:} Ưu tiên gợi ý các concept mà học sinh có điểm năng lực thấp nhất trong tập sẵn sàng (Ready Set).
+    \item \textbf{Chiến lược Cross\_Chapter:} Ưu tiên mở khóa các chương mới thông qua các cạnh liên kết liên chương.
+\end{itemize}
 
 \section{Cách thức triển khai thực nghiệm}
-\blindtext
+Đối với phần mô phỏng, thuật toán sẽ tự động chạy qua 500 bước học tập cho từng hồ sơ để ghi nhận sự biến thiên của Elo.
+
+Đối với phần ứng dụng ứng dụng thực tế (MVP), nhóm thực hiện kiểm thử thủ công (Manual Testing) bằng cách đóng vai các profile học sinh, thực hiện làm bài trên giao diện web để xác minh tính đúng đắn của logic gợi ý và khả năng phản hồi thời gian thực của hệ thống.
 
 \section{Kết quả thực nghiệm}
-\blindtext
+Dựa trên kết quả mô phỏng và kiểm thử, nhóm nghiên cứu đã chốt lại cấu hình Engine cuối cùng như sau:
+
+\textbf{1. Cấu hình Engine tối ưu (Final Configuration):}
+\begin{itemize}
+    \item \textbf{Hệ số K = 24 (Constant):} Việc sử dụng K cố định ở mức 24 mang lại sự cân bằng tốt nhất, giúp biểu đồ năng lực mượt mà hơn so với K=32 (gây dao động lớn) và phản ứng nhanh hơn so với K=16.
+    \item \textbf{Ngưỡng thành thạo = 1250:} Mức điểm này đủ tin cậy để xác nhận học sinh đã nắm vững kiến thức mà không giữ chân họ quá lâu.
+    \item \textbf{Chiến lược Lowest\_Elo:} Đây là chiến lược được lựa chọn chính thức. Kết quả thực nghiệm cho thấy chiến lược \textit{Cross\_Chapter} khiến học sinh rời khỏi cụm kiến thức (cluster) hiện tại quá sớm, dẫn đến hiện tượng "vỡ lộ trình" khi nền tảng chưa vững. Ngược lại, \textit{Lowest\_Elo} giúp củng cố vùng kiến thức yếu nhất trước khi tiến xa hơn thông qua chỉ số xác suất kỳ vọng (\textit{expected\_rate} - đã hiệu chỉnh tham số đoán mò) giúp giảm thiểu sai số.
+\end{itemize}
 
 \section{Phân tích và thảo luận kết quả}
-\blindtext
+Với cấu hình \textbf{K=24} và chiến lược \textbf{Lowest\_Elo}, hệ thống thể hiện khả năng giảm thiểu hiện tượng "Zigzag giả" (nhiễu tín hiệu năng lực). Biểu đồ năng lực phản ánh trung thực quá trình tích lũy kiến thức: đi lên ổn định với học sinh giỏi và đi ngang/dao động nhẹ để củng cố với học sinh yếu. Chiến lược Lowest\_Elo đảm bảo học sinh luôn hoạt động trong vùng phát triển gần nhất (ZPD - Zone of Proximal Development: Vùng phát triển gần nhất) phù hợp với năng lực thực tế.
