@@ -1,0 +1,71 @@
+\chapter{GIỚI THIỆU}
+
+\section{Lý do chọn đề tài}
+Trong bối cảnh chuyển đổi số giáo dục, các nền tảng học trực tuyến ngày càng phổ biến nhưng phần lớn vẫn được thiết kế theo mô hình “một lộ trình cho tất cả”, với nội dung học tập sắp xếp tuyến tính và ít khả năng thích ứng với năng lực cá nhân. Cách tiếp cận này đặc biệt bất lợi đối với học sinh THPT có học lực yếu đến trung bình, khi các em thường tồn tại những lỗ hổng kiến thức nền tảng nhưng không được phát hiện và xử lý kịp thời, dẫn đến việc học tập kém hiệu quả và giảm động lực học.
+
+Đối với môn Toán THPT, khó khăn của học sinh thường xuất phát từ việc chưa nắm vững các kiến thức tiên quyết hơn là độ khó của nội dung mới. Học tập thích ứng (Adaptive Learning) được xem là một hướng tiếp cận tiềm năng nhằm giải quyết vấn đề này thông qua việc mô hình hóa kiến thức, theo dõi năng lực người học và điều chỉnh lộ trình học theo thời gian thực. Trên cơ sở đó, đề tài tập trung nghiên cứu và mô phỏng một hệ thống học tập thích ứng cho môn Toán THPT, kết hợp đồ thị kiến thức với các mô hình đánh giá năng lực như Elo và Lý thuyết Ứng đáp Câu hỏi (IRT), nhằm đánh giá khả năng cá nhân hóa lộ trình học tập cho từng học sinh.
+
+\section{Mục tiêu nghiên cứu}
+Mục tiêu tổng quát của đề tài là nghiên cứu và xây dựng một mô hình học tập thích ứng nhằm hỗ trợ học sinh THPT, đặc biệt là nhóm học sinh yếu và trung bình, trong việc lấp đầy các lỗ hổng kiến thức và tối ưu hóa quá trình học tập môn Toán.
+
+Để đạt được mục tiêu tổng quát trên, đề tài hướng đến các mục tiêu cụ thể sau:
+\begin{itemize}
+    \item Xây dựng đồ thị kiến thức (Concept Graph) cho một số chương trọng tâm của chương trình Toán THPT, phản ánh mối quan hệ tiên quyết giữa các khái niệm toán học.
+    \item Nghiên cứu và áp dụng mô hình thống kê Elo, kết hợp các nguyên tắc của Lý thuyết Ứng đáp Câu hỏi (IRT), nhằm ước lượng năng lực học tập của học sinh và độ khó của câu hỏi.
+    \item Thiết kế và hiện thực lõi thuật toán của một Adaptive Learning Engine có khả năng đề xuất câu hỏi và lộ trình học phù hợp với năng lực hiện tại của người học.
+    \item Đánh giá khả năng cá nhân hóa lộ trình học thông qua các kịch bản mô phỏng với nhiều hồ sơ học sinh khác nhau.
+    \item Xây dựng một ứng dụng demo đơn giản để minh họa hoạt động của hệ thống học tập thích ứng trong thực tế.
+\end{itemize}
+
+\section{Vấn đề nghiên cứu và câu hỏi đặt ra}
+Việc ứng dụng học tập thích ứng cho môn Toán THPT gặp thách thức lớn trong mô hình hóa quan hệ tiên quyết giữa các khái niệm, khi hầu hết hệ thống hiện nay vẫn tổ chức nội dung tuyến tính và thiếu liên kết liên chương. Bên cạnh đó, các phương pháp đánh giá truyền thống chưa đáp ứng được nhu cầu điều chỉnh lộ trình học theo thời gian thực. Việc ứng dụng các mô hình như Elo\cite{pelanek2016elo} hay Lý thuyết Ứng đáp Câu hỏi (IRT)\cite{nguyen2014irt} trong môi trường không đồng nhất đòi hỏi sự điều chỉnh phù hợp để phản ánh chính xác năng lực người học.
+
+Xuất phát từ thực tiễn trên, đề tài tập trung giải quyết các câu hỏi nghiên cứu sau:
+\begin{itemize}
+    \item Việc biểu diễn kiến thức Toán THPT dưới dạng đồ thị kiến thức (Concept Graph) có giúp mô hình hóa hiệu quả mối quan hệ phụ thuộc giữa các khái niệm và hỗ trợ xây dựng lộ trình học tập thích ứng hay không?
+    \item Mô hình Elo, khi được điều chỉnh và tham chiếu các nguyên lý của Lý thuyết Ứng đáp Câu hỏi (IRT), có đủ khả năng ước lượng năng lực học sinh trong bối cảnh học tập thích ứng theo thời gian thực hay không?
+    \item Việc bổ sung các liên kết liên chương trong đồ thị kiến thức có tạo ra sự khác biệt đáng kể trong lộ trình học tập so với cách tổ chức nội dung tuyến tính truyền thống hay không?
+    \item Các lộ trình học tập được sinh ra từ hệ thống có phản ánh rõ sự khác biệt về năng lực đầu vào giữa các hồ sơ học sinh khác nhau hay không?
+\end{itemize}
+
+\section{Phạm vi, Mục tiêu và Đóng góp của đề tài}
+\subsection{Phạm vi và giới hạn}
+Trong khuôn khổ đề tài này, mục tiêu chính là chứng minh khả năng tạo ra sự phân kỳ lộ trình học tập (Path Divergence) của một mô-đun học tập thích ứng khi được áp dụng cho môn Toán Trung học Phổ thông. Cụ thể, đề tài tập trung đánh giá việc sử dụng đồ thị kiến thức (Concept Graph) kết hợp với mô hình ước lượng năng lực Elo, có tham chiếu các nguyên lý của Lý thuyết Ứng đáp Câu hỏi (IRT), trong việc sinh ra các lộ trình học tập khác nhau tương ứng với năng lực đầu vào của học sinh.
+
+Phạm vi nghiên cứu được giới hạn ở ba nhóm hồ sơ học sinh đại diện cho các mức năng lực khác nhau, bao gồm: học sinh yếu, học sinh trung bình và học sinh giỏi. Mỗi hồ sơ được mô hình hóa bằng các tham số năng lực ban đầu khác nhau và được sử dụng để mô phỏng quá trình học tập trong cùng một không gian kiến thức. Thông qua đó, đề tài nhằm phân tích và so sánh các lộ trình học tập được sinh ra, làm rõ mức độ phân kỳ của đường đi học tập giữa các nhóm năng lực khác nhau.
+
+Bên cạnh đó, đề tài không hướng đến việc xây dựng một hệ thống học trực tuyến hoàn chỉnh hay đánh giá hiệu quả sư phạm trên người học thực tế. Việc đánh giá được thực hiện thông qua mô phỏng học tập với dữ liệu và kịch bản giả lập, tập trung vào việc kiểm chứng tính hợp lý của mô hình và thuật toán học tập thích ứng, thay vì các yếu tố như giao diện người dùng, khả năng mở rộng hay triển khai ở quy mô lớn.
+
+\subsection{Mục tiêu nghiên cứu}
+Mục tiêu tổng quát của đề tài là nghiên cứu và xây dựng một mô hình học tập thích ứng nhằm hỗ trợ học sinh THPT, đặc biệt là nhóm học sinh yếu và trung bình, trong việc lấp đầy các lỗ hổng kiến thức và tối ưu hóa quá trình học tập môn Toán.
+
+Để đạt được mục tiêu tổng quát trên, đề tài hướng đến các mục tiêu cụ thể sau:
+\begin{itemize}
+    \item Xây dựng đồ thị kiến thức (Concept Graph) cho một số chương trọng tâm của chương trình Toán THPT, phản ánh mối quan hệ tiên quyết giữa các khái niệm toán học.
+    \item Nghiên cứu và áp dụng mô hình thống kê Elo, kết hợp các nguyên tắc của Lý thuyết Ứng đáp Câu hỏi (IRT), nhằm ước lượng năng lực học tập của học sinh và độ khó của câu hỏi.
+    \item Thiết kế và hiện thực lõi thuật toán của một Adaptive Learning Engine có khả năng đề xuất câu hỏi và lộ trình học phù hợp với năng lực hiện tại của người học.
+    \item Đánh giá khả năng cá nhân hóa lộ trình học thông qua các kịch bản mô phỏng với nhiều hồ sơ học sinh khác nhau.
+    \item Xây dựng một ứng dụng demo đơn giản để minh họa hoạt động của hệ thống học tập thích ứng trong thực tế.
+\end{itemize}
+
+\subsection{Đóng góp của đề tài}
+Đề tài đóng góp một hướng tiếp cận mới cho bài toán học tập thích ứng môn Toán THPT thông qua việc kết hợp đồ thị kiến thức có liên kết liên chương và mô hình Elo-IRT. Thay vì đánh giá diện rộng, nghiên cứu tập trung kiểm chứng tính hợp lý của mô hình trong việc cá nhân hóa lộ trình học, phản ánh đúng năng lực người học theo thời gian thực.
+
+Về mặt thực nghiệm, kết quả mô phỏng trên ba nhóm hồ sơ học sinh (yếu, trung bình, giỏi) đã minh họa rõ hiện tượng phân kỳ lộ trình học tập (Path Divergence). Đây là cơ sở quan trọng để khẳng định tính khả thi của thuật toán đề xuất và cung cấp tài liệu tham khảo cho việc phát triển các hệ thống giáo dục thích ứng trong tương lai.
+
+\section{Phương pháp tiếp cận}
+Đề tài tiếp cận theo hướng nghiên cứu và mô phỏng, kết hợp giữa mô hình hóa tri thức và mô hình đánh giá năng lực người học, với trọng tâm là kiểm chứng khả năng cá nhân hóa lộ trình thay vì xây dựng một hệ thống hoàn chỉnh. Kiến thức Toán THPT được biểu diễn dưới dạng đồ thị kiến thức (Concept Graph), với các khái niệm là đỉnh và mối quan hệ tiên quyết là cạnh có hướng, được xây dựng dựa trên chương trình chuẩn và tham vấn chuyên môn để đảm bảo tính chính xác.
+
+Để đánh giá năng lực học sinh, hệ thống sử dụng mô hình Elo cập nhật theo thời gian thực sau mỗi tương tác, kết hợp với các nguyên lý tâm trắc học của Lý thuyết Ứng đáp Câu hỏi (IRT) để gán nhãn và hiệu chỉnh độ khó câu hỏi. Phương pháp này cho phép ước lượng độ chính xác trình độ người học trong quá trình tương tác, tạo cơ sở tham chiếu tin cậy cho việc đề xuất nội dung học tập phù hợp.
+
+Trên cơ sở đồ thị kiến thức và năng lực ước lượng, thuật toán học tập thích ứng đề xuất lộ trình cá nhân hóa, ưu tiên khắc phục các lỗ hổng kiến thức tiên quyết. Tính hiệu quả của mô hình được kiểm chứng thông qua các kịch bản mô phỏng với nhiều hồ sơ đầu vào khác nhau, so sánh sự khác biệt (Path Divergence) giữa lộ trình thích ứng và lộ trình tuyến tính truyền thống.
+
+\section{Cấu trúc báo cáo}
+Nội dung báo cáo được tổ chức thành 5 chương chính:
+\begin{itemize}
+    \item \textbf{Chương 1 – Tổng quan đề tài:} Trình bày bối cảnh, mục tiêu, phạm vi và phương pháp nghiên cứu, định vị hướng tiếp cận cá nhân hóa lộ trình học tập.
+    \item \textbf{Chương 2 – Cơ sở lý thuyết:} Hệ thống các khái niệm nền tảng về học tập thích ứng, đồ thị kiến thức, mô hình Elo và lý thuyết IRT.
+    \item \textbf{Chương 3 – Mô hình đề xuất:} Mô tả chi tiết thiết kế hệ thống, bao gồm cấu trúc đồ thị kiến thức, mô hình năng lực và thuật toán thích ứng.
+    \item \textbf{Chương 4 – Mô phỏng và đánh giá:} Phân tích kết quả mô phỏng, chứng minh sự phân kỳ lộ trình giữa các nhóm năng lực so với phương pháp truyền thống.
+    \item \textbf{Chương 5 – Kết luận:} Tổng kết kết quả đạt được, hạn chế và định hướng phát triển trong tương lai.
+\end{itemize}

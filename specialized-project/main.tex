@@ -1,0 +1,91 @@
+\documentclass[a4paper, oneside]{project}
+\usepackage[utf8]{vietnam}
+\usepackage{placeins}
+\usepackage{amsfonts}
+\usepackage{textcomp}
+\usepackage{dblfloatfix}
+\usepackage{subfig}
+\usepackage{lineno}
+\usepackage{amssymb}
+\usepackage{tabularx,booktabs}
+\usepackage{longtable, lipsum}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage[sorting=nyt]{biblatex}
+\usepackage{mathtools}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{makecell}
+\usepackage{blindtext}
+\usepackage{subfiles} % Chèn các file nhỏ, giúp chia các chapter ra nhiều file hơn
+
+% Config reference
+\addbibresource{ref.bib}
+
+% Setup hyper link
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+
+% Config information
+\upperuniname{ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH}
+\uniname{TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN}
+\deptname{KHOA CÔNG NGHỆ PHẦN MỀM}
+\stumajor{KỸ SƯ NGÀNH KỸ THUẬT PHẦN MỀM}
+\title{XÂY DỰNG ỨNG DỤNG HỌC TOÁN THÍCH ỨNG CHO HỌC SINH THPT}
+\titleen{DEVELOPING AN ADAPTIVE E-LEARNING APPLICATION FOR HIGH SCHOOL MATHEMATICS}
+\supervisor{GIẢNG VIÊN HƯỚNG DẪN}
+\supervisorname{TS. LÊ VĂN TUẤN}
+\stunamewithid{PHẠM TRIỀU DƯƠNG - 23520355\\HỒ NGUYỄN MINH SANG - 23521338}
+\reporttime{NĂM 2025}
+
+\begin{document}
+
+\coverpage
+
+\frontmatter
+\subfile{chapters/front/thanks}
+\clearpage
+\tableofcontents
+\clearpage
+\subfile{chapters/front/glossaries}
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+
+\counterwithin{equation}{section}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\setcounter{secnumdepth}{3}
+\mainmatter
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+
+% Config page header
+% \if @twoside
+%   \fancyhead[EL,OR]{\bfseries\nouppercase\rightmark}
+% \else
+%   \fancyhead[R]{\bfseries\nouppercase\rightmark}
+% \fi
+
+% Main chapters
+\subfile{chapters/main/chapter-1}
+\subfile{chapters/main/chapter-2}
+\subfile{chapters/main/chapter-3}
+\subfile{chapters/main/chapter-4}
+\subfile{chapters/main/chapter-5}
+\subfile{chapters/main/conclusion}
+
+% Print references
+\printbibliography[heading=bibintoc, title = {Tài liệu tham khảo}]
+\end{document}
