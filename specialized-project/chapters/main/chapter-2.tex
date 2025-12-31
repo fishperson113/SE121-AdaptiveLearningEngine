@@ -8,13 +8,40 @@ Tuy nhiên, đối với các môn học có cấu trúc kiến thức phụ thu
 Một số hướng nghiên cứu gần đây bắt đầu quan tâm đến việc biểu diễn kiến thức dưới dạng đồ thị (concept graph hoặc knowledge graph) nhằm phản ánh mối quan hệ phụ thuộc giữa các khái niệm. Tuy vậy, việc xây dựng đồ thị kiến thức cụ thể cho môn Toán THPT, cũng như khai thác đồ thị này để tạo ra lộ trình học tập phân hóa rõ ràng giữa các nhóm năng lực khác nhau, vẫn chưa được nghiên cứu một cách hệ thống.
 
 \section{Các khái niệm và nền tảng lý thuyết}
-\blindtext
+\subsection{Học tập thích ứng (Adaptive Learning)}
+Học tập thích ứng (Adaptive Learning) là cách tiếp cận trong giáo dục nhằm cá nhân hóa quá trình học tập dựa trên đặc điểm, năng lực và tiến trình của từng người học \cite{10.1093/elt/ccv055}. Khác với mô hình học tập truyền thống, trong đó mọi học sinh cùng tuân theo một lộ trình cố định, hệ thống học tập thích ứng cho phép điều chỉnh nội dung, thứ tự và mức độ khó của bài học theo thời gian thực \cite{setyaningsih2023ai}.
 
+Trong các hệ thống học tập thích ứng, dữ liệu thu thập từ quá trình học (kết quả làm bài, thời gian phản hồi, số lần sai, v.v.) được sử dụng để ước lượng năng lực hiện tại của người học. Dựa trên ước lượng này, hệ thống có thể đưa ra các quyết định như đề xuất nội dung cần ôn tập, bỏ qua những phần đã nắm vững hoặc điều chỉnh lộ trình học phù hợp hơn với từng cá nhân.
+
+\subsection{Kiến thức tiên quyết trong Toán học}
+Toán học là môn học có cấu trúc kiến thức mang tính phụ thuộc cao, trong đó nhiều khái niệm và kỹ năng chỉ có thể được tiếp thu hiệu quả khi người học đã nắm vững các kiến thức nền tảng liên quan. Những kiến thức này thường được gọi là kiến thức tiên quyết (prerequisite knowledge).
+
+Việc thiếu hụt kiến thức tiên quyết có thể dẫn đến hiện tượng học sinh gặp khó khăn ở các nội dung nâng cao, dù bản thân nội dung đó không quá phức tạp. Do đó, trong bối cảnh học tập thích ứng, việc xác định và mô hình hóa mối quan hệ tiên quyết giữa các khái niệm đóng vai trò quan trọng, giúp hệ thống phát hiện đúng nguyên nhân của lỗi học tập và đề xuất lộ trình củng cố phù hợp.
+
+\subsection{Đồ thị kiến thức (Concept Graph)}
+Đồ thị kiến thức (Concept Graph) là một mô hình biểu diễn tri thức trong đó các đỉnh (nodes) đại diện cho các khái niệm, còn các cạnh (edges) thể hiện mối quan hệ giữa các khái niệm đó, đặc biệt là quan hệ tiên quyết \cite{10.1145/2684822.2685292}. Mô hình này cho phép biểu diễn cấu trúc kiến thức một cách trực quan và linh hoạt hơn so với cách tổ chức nội dung theo dạng tuyến tính.
+
+Trong bối cảnh học tập thích ứng, concept graph giúp hệ thống không chỉ xác định nội dung học hiện tại mà còn truy vết các khái niệm nền tảng có liên quan khi người học gặp khó khăn. Việc khai thác đồ thị kiến thức tạo điều kiện cho việc xây dựng các lộ trình học tập linh hoạt, có khả năng phân nhánh dựa trên trạng thái kiến thức của từng học sinh.
+
+\subsection{Đánh giá năng lực người học}
+Đánh giá năng lực người học trong học tập thích ứng không chỉ dừng lại ở các bài kiểm tra tổng kết, mà cần được thực hiện liên tục trong suốt quá trình học. Năng lực ở đây được hiểu là khả năng của học sinh trong việc giải quyết các câu hỏi hoặc nhiệm vụ học tập có mức độ khó khác nhau.
+
+Việc đánh giá năng lực theo thời gian thực cho phép hệ thống cập nhật trạng thái người học một cách động, từ đó điều chỉnh lộ trình học tập kịp thời. Đây là nền tảng quan trọng để cá nhân hóa trải nghiệm học tập và tạo ra sự khác biệt rõ ràng giữa các hồ sơ học sinh có trình độ khác nhau.
+
+\subsection{Mô hình Elo và Lý thuyết Ứng đáp Câu hỏi (IRT)}
+Mô hình Elo ban đầu được phát triển để đánh giá trình độ của các kỳ thủ cờ vua, dựa trên kết quả đối đầu giữa hai người chơi \cite{pelanek2016elo}. Trong bối cảnh giáo dục, mô hình này có thể được điều chỉnh để ước lượng năng lực của học sinh thông qua kết quả trả lời các câu hỏi, trong đó mỗi câu hỏi được xem như một “đối thủ” có độ khó nhất định.
+
+Lý thuyết Ứng đáp Câu hỏi (Item Response Theory – IRT) là một khung lý thuyết thống kê được sử dụng rộng rãi trong đo lường giáo dục \cite{nguyen2014irt}. IRT mô hình hóa mối quan hệ giữa năng lực người học và xác suất trả lời đúng một câu hỏi, thông qua các tham số như độ khó và khả năng phân biệt của câu hỏi. Các nguyên lý của IRT cung cấp cơ sở lý thuyết quan trọng cho việc thiết kế và hiệu chỉnh các mô hình đánh giá năng lực trong hệ thống học tập thích ứng.
 \section{Các phương pháp / mô hình hiện có}
-\blindtext
+Trong lĩnh vực học tập thích ứng, nhiều hướng tiếp cận khác nhau đã được nghiên cứu và triển khai, tùy thuộc vào mục tiêu cá nhân hóa và đặc thù môn học. Một nhóm lớn các nghiên cứu tập trung vào các hệ thống học tập tuyến tính có điều chỉnh tiến độ, trong đó nội dung được sắp xếp theo thứ tự cố định và học sinh chỉ được chuyển sang nội dung tiếp theo khi đạt một mức độ thành thạo nhất định (mastery-based learning). Cách tiếp cận này đơn giản trong triển khai nhưng hạn chế khả năng cá nhân hóa sâu, đặc biệt trong các môn học có cấu trúc kiến thức phụ thuộc chặt chẽ như Toán học \cite{setyaningsih2023ai}.
+
+Một hướng tiếp cận phổ biến khác là các hệ thống học tập thích ứng dựa trên nguyên lý spaced repetition, chủ yếu được áp dụng trong lĩnh vực học ngôn ngữ, đặc biệt là tiếng Anh. Các hệ thống này tập trung vào việc tối ưu thời điểm ôn tập dựa trên lịch sử ghi nhớ của người học, nhưng thường không mô hình hóa tường minh cấu trúc kiến thức hay mối quan hệ tiên quyết giữa các khái niệm. Do đó, khả năng áp dụng trực tiếp cho môn Toán THPT – nơi kiến thức có tính kế thừa và phụ thuộc cao – còn nhiều hạn chế.
+
+Bên cạnh đó, một số nghiên cứu đề xuất sử dụng các mô hình thống kê như Elo hoặc Lý thuyết Ứng đáp Câu hỏi (Item Response Theory – IRT) để ước lượng năng lực người học và độ khó câu hỏi trong môi trường học tập thích ứng. Các mô hình này cho phép cập nhật năng lực theo thời gian thực dựa trên kết quả làm bài, tạo tiền đề cho việc xây dựng các hệ thống cá nhân hóa linh hoạt hơn. Tuy nhiên, hiệu quả của các mô hình này phụ thuộc lớn vào cách tổ chức nội dung học tập và cách liên kết giữa các đơn vị kiến thức.
 
 \section{So sánh và đánh giá các hướng tiếp cận}
-\blindtext
+So sánh các hướng tiếp cận cho thấy mỗi phương pháp đều có những ưu điểm và hạn chế riêng. Các hệ thống tuyến tính và mastery-based phù hợp với việc quản lý tiến độ học tập nhưng thiếu khả năng điều chỉnh lộ trình theo đặc điểm cụ thể của từng học sinh. Các hệ thống dựa trên spaced repetition có hiệu quả trong việc duy trì khả năng ghi nhớ, song chưa giải quyết triệt để vấn đề lỗ hổng kiến thức tiên quyết trong các môn học có cấu trúc phân tầng như Toán học.
 
+Trong khi đó, các mô hình đánh giá năng lực như Elo và IRT cho phép theo dõi sự thay đổi năng lực người học một cách liên tục, nhưng nếu không được kết hợp với một mô hình biểu diễn kiến thức phù hợp, chúng khó có thể tạo ra lộ trình học tập mang tính thích ứng thực sự. Điều này cho thấy việc kết hợp giữa mô hình đánh giá năng lực và cấu trúc kiến thức dạng đồ thị có tiềm năng khắc phục các hạn chế của từng hướng tiếp cận riêng lẻ.
 \section{Khoảng trống nghiên cứu}
-\blindtext
+Từ tổng quan và so sánh các hướng tiếp cận hiện có, có thể nhận thấy rằng phần lớn các nghiên cứu về học tập thích ứng tập trung vào việc tối ưu trình tự ôn tập hoặc ước lượng năng lực người học, đặc biệt trong lĩnh vực học ngôn ngữ, mà chưa chú trọng đầy đủ đến việc mô hình hóa tường minh cấu trúc kiến thức và mối quan hệ tiên quyết giữa các khái niệm trong môn Toán THPT. Bên cạnh đó, số lượng nghiên cứu đánh giá sự khác biệt lộ trình học tập (path divergence) giữa các nhóm học sinh có năng lực đầu vào khác nhau vẫn còn hạn chế. Đây chính là khoảng trống mà đề tài hướng tới, thông qua việc kết hợp đồ thị kiến thức với mô hình Elo/IRT và sử dụng mô phỏng để phân tích mức độ cá nhân hóa của lộ trình học tập.

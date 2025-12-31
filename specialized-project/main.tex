@@ -23,8 +23,7 @@
 \usepackage{makecell}
 \usepackage{blindtext}
 \usepackage{subfiles} % Chèn các file nhỏ, giúp chia các chapter ra nhiều file hơn
-\usepackage{enumitem}
-\setlist[itemize]{leftmargin=1.5cm} % Cấu hình thụt lề cho bullet points
+\usepackage{float}
 
 % Config reference
 \addbibresource{ref.bib}
@@ -65,11 +64,16 @@
 \clearpage
 
 
-\counterwithin{equation}{section}
-\counterwithin{table}{section}
-\counterwithin{figure}{section}
 \setcounter{secnumdepth}{3}
 \mainmatter
+\counterwithin{equation}{section}
+\counterwithin{table}{subsection}
+\counterwithin{figure}{subsection}
+
+% Custom numbering: Use subsection if not 0, else use section
+\renewcommand{\thefigure}{\ifnum\value{subsection}=0 \thesection.\arabic{figure}\else \thesubsection.\arabic{figure}\fi}
+\renewcommand{\thetable}{\ifnum\value{subsection}=0 \thesection.\arabic{table}\else \thesubsection.\arabic{table}\fi}
+
 \fancyhf{}
 \fancyfoot[C]{\thepage}
 

@@ -1,16 +1,210 @@
 \chapter{PHƯƠNG PHÁP / KIẾN TRÚC ĐỀ XUẤT}
 
 \section{Tổng quan phương pháp đề xuất}
-\blindtext
+Phương pháp được đề xuất trong đề tài này nhằm xây dựng và đánh giá một hệ thống học tập thích ứng cho môn Toán THPT, tập trung vào khả năng cá nhân hóa lộ trình học tập dựa trên năng lực của từng học sinh. Trọng tâm của phương pháp không nằm ở việc phát triển một mô hình học máy phức tạp, mà ở việc kết hợp có hệ thống giữa mô hình biểu diễn kiến thức và mô hình đánh giá năng lực, từ đó tạo ra các lộ trình học khác biệt cho các hồ sơ học sinh khác nhau.
 
+Cụ thể, phương pháp đề xuất dựa trên ba thành phần chính: (i) đồ thị kiến thức (Concept Graph) biểu diễn cấu trúc và mối quan hệ tiên quyết giữa các khái niệm Toán THPT, (ii) mô hình đánh giá năng lực người học dựa trên Elo, có tham khảo các nguyên tắc của Lý thuyết Ứng đáp Câu hỏi (IRT), và (iii) thuật toán Adaptive Learning Engine chịu trách nhiệm lựa chọn khái niệm và câu hỏi phù hợp tại mỗi thời điểm học tập. Đồ thị kiến thức đóng vai trò xác định không gian học tập và các khái niệm “sẵn sàng học”, trong khi mô hình Elo cho phép ước lượng và cập nhật năng lực người học theo thời gian thực dựa trên kết quả trả lời câu hỏi.
+
+Trên cơ sở đó, hệ thống tạo ra lộ trình học tập động, trong đó thứ tự các khái niệm và câu hỏi có thể thay đổi tùy theo năng lực đầu vào và quá trình học tập của từng học sinh. Để đánh giá hiệu quả của phương pháp, đề tài sử dụng mô phỏng với các hồ sơ học sinh giả lập (yếu, trung bình, giỏi) và so sánh lộ trình học tập sinh ra từ các cấu trúc đồ thị kiến thức khác nhau. Mục tiêu chính của phương pháp là phân tích hiện tượng path divergence — sự khác biệt trong lộ trình học — như một chỉ báo cho khả năng cá nhân hóa của hệ thống học tập thích ứng được đề xuất.
 \section{Mô hình kiến trúc tổng thể}
-\blindtext
+Kiến trúc hệ thống học tập thích ứng đề xuất được xây dựng xoay quanh Adaptive Learning Engine, đóng vai trò trung tâm trong việc điều phối tương tác với người học thông qua cơ chế quiz. Hệ thống bao gồm 5 thành phần chính hoạt động theo chu trình khép kín: Người học, Adaptive Learning Engine, Đồ thị kiến thức (Concept Graph), Mô hình đánh giá năng lực, và Ngân hàng câu hỏi (Question Bank).
+
+Trong đó, Adaptive Learning Engine chịu trách nhiệm lựa chọn câu hỏi từ Ngân hàng câu hỏi dựa trên trạng thái hiện tại của người học. Đồ thị kiến thức cung cấp các ràng buộc về quan hệ tiên quyết, giúp xác định các khái niệm phù hợp để học tiếp. Mô hình đánh giá (dựa trên Elo/IRT) cập nhật năng lực người học theo thời gian thực sau mỗi câu trả lời, làm cơ sở cho các quyết định thích ứng tiếp theo. Các thành phần này được tích hợp chặt chẽ để phục vụ mục tiêu mô phỏng và phân tích sự phân nhánh của lộ trình học tập.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{graphics/chapter-3/chapter3-flow.jpg}
+    \caption{Kiến trúc tổng thể hệ thống học tập thích ứng}
+    \label{fig:chapter3-flow}
+\end{figure}
 
 \section{Mô tả chi tiết các thành phần}
-\blindtext
+
+\subsection{Concept Graph}
+Trong đề tài này, kiến thức Toán THPT được mô hình hóa dưới dạng đồ thị kiến thức (Concept Graph), trong đó các đỉnh đại diện cho đơn vị kiến thức và các cạnh có hướng biểu diễn quan hệ tiên quyết. Đồ thị được xây dựng thủ công dựa trên chương trình chuẩn và tham vấn giáo viên, tập trung vào ba chủ đề liên kết chặt chẽ: Mệnh đề – Tập hợp, Bất phương trình bậc hai và Hàm số bậc hai, nhằm hỗ trợ học sinh yếu đến trung bình.
+
+Hình \ref{fig:chapter3-conceptgraph} minh họa cấu trúc đồ thị, từ các khái niệm nền tảng đến nâng cao và các liên kết liên chương. Cách biểu diễn này cho phép hệ thống xác định các khái niệm “sẵn sàng học”—những kiến thức mà học sinh đã đủ điều kiện tiếp cận—làm cơ sở để Adaptive Learning Engine đề xuất nội dung tối ưu thay vì tuân theo lộ trình tuyến tính truyền thống.
+
+Nghiên cứu so sánh hai cấu trúc đồ thị: (i) Baseline (tuyến tính theo chương) và (ii) Advanced (có liên kết liên chương). Việc này đóng vai trò then chốt trong việc đánh giá ảnh hưởng của cấu trúc kiến thức đến sự phân nhánh và cá nhân hóa lộ trình học tập của học sinh.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/chapter-3/chapter3-conceptgraph.jpg}
+    \caption{Minh họa một phần đồ thị kiến thức được xây dựng trong đề tài}
+    \label{fig:chapter3-conceptgraph}
+\end{figure}
+
+\subsection{Question Bank}
+Ngân hàng câu hỏi (Question Bank) cung cấp dữ liệu cho Adaptive Learning Engine thông qua các bài kiểm tra ngắn, được trích xuất từ bộ đề ôn tập Toán lớp 10 chuẩn. Các câu hỏi này đảm bảo phù hợp với chương trình phổ thông hiện hành và được gán nhãn thủ công với hai thông số chính: khái niệm tương ứng trong đồ thị kiến thức (concept\_id) và độ khó khởi tạo (elo\_difficulty).
+
+Hệ thống phân loại độ khó dựa trên ba mức nhận thức: Nhận biết, Thông hiểu và Vận dụng, tương ứng với các giá trị Elo khởi tạo tăng dần. Việc ánh xạ này giúp phản ánh tương quan độ khó ban đầu, hỗ trợ mô hình Elo hội tụ nhanh và đánh giá chính xác năng lực người học trong quá trình tương tác.
+
+Bảng \ref{tab:question_bank_structure} minh họa cấu trúc dữ liệu của ngân hàng câu hỏi. Tập dữ liệu này được giữ cố định trong suốt quá trình mô phỏng để đảm bảo tính nhất quán khi phân tích và so sánh hiệu quả cá nhân hóa lộ trình học tập giữa các đối tượng học sinh khác nhau.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|c|}
+        \hline
+        \textbf{question\_id} & \textbf{concept\_id} & \textbf{elo\_difficulty} \\
+        \hline
+        MenhDeVaTapHop\_NB\_01 & MenhDeVaTapHop & 1050 \\
+        MenhDeVaTapHop\_TH\_01 & MenhDeVaTapHop & 1200 \\
+        MenhDeVaTapHop\_VD\_01 & MenhDeVaTapHop & 1350 \\
+        MenhDe\_NB\_01 & MenhDe & 1050 \\
+        MenhDe\_TH\_01 & MenhDe & 1200 \\
+        MenhDe\_VD\_01 & MenhDe & 1350 \\
+        TapHop\_NB\_01 & TapHop & 1050 \\
+        TapHop\_TH\_01 & TapHop & 1200 \\
+        TapHop\_VD\_01 & TapHop & 1350 \\
+        CacPhepToanTrenTapHop\_NB\_01 & CacPhepToanTrenTapHop & 1050 \\
+        CacPhepToanTrenTapHop\_TH\_01 & CacPhepToanTrenTapHop & 1200 \\
+        ... & ... & ... \\
+        \hline
+    \end{tabular}
+    \caption{Cấu trúc dữ liệu mẫu của Ngân hàng câu hỏi}
+    \label{tab:question_bank_structure}
+\end{table}
+
+\subsection{Elo / IRT}
+Trong hệ thống học tập thích ứng đề xuất, năng lực của người học được ước lượng và cập nhật liên tục thông qua mô hình Elo, một mô hình thống kê ban đầu được sử dụng trong lĩnh vực xếp hạng cờ vua. Việc lựa chọn Elo xuất phát từ đặc tính đơn giản, khả năng cập nhật theo thời gian thực và phù hợp với bối cảnh học tập trực tuyến theo từng câu hỏi.
+
+Mỗi học sinh được gán một giá trị Elo riêng cho từng khái niệm trong đồ thị kiến thức. Độ khó của mỗi câu hỏi trong ngân hàng câu hỏi cũng được biểu diễn bằng một giá trị Elo và được gán nhãn thủ công bởi nhóm thực hiện, dựa trên bộ câu hỏi chuẩn của chương trình Toán lớp 10. Trong quá trình làm bài, xác suất học sinh trả lời đúng một câu hỏi được ước lượng theo công thức logistic của Elo:
+
+\begin{equation*}
+    P(correct) = \frac{1}{1 + 10^{\frac{R_q - R_s}{400}}}
+\end{equation*}
+
+trong đó $R_s$ là Elo hiện tại của học sinh tại khái niệm tương ứng và $R_q$ là độ khó của câu hỏi.
+
+Sau khi học sinh trả lời câu hỏi, Elo của học sinh được cập nhật theo quy tắc:
+
+\begin{equation*}
+    R_s(t+1) = R_s(t) + K \cdot (S - P)
+\end{equation*}
+
+với $S=1$ nếu học sinh trả lời đúng và $S=0$ nếu trả lời sai. Hệ số $K$ được sử dụng dưới dạng động, phụ thuộc vào số lượng câu hỏi mà học sinh đã làm trên khái niệm đó (Bảng \ref{tab:k_factor}). Cụ thể, hệ số $K$ được đặt lớn ở giai đoạn đầu nhằm phản ánh nhanh năng lực ban đầu của học sinh và giảm dần khi số lượng câu hỏi tăng lên để đảm bảo sự ổn định của ước lượng năng lực.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Số lượng câu hỏi đã làm ($N$)} & \textbf{Hệ số $K$} \\
+        \hline
+        $N < 5$ & 40 \\
+        $5 \le N \le 15$ & 24 \\
+        $N > 15$ & 16 \\
+        \hline
+    \end{tabular}
+    \caption{Cơ chế điều chỉnh hệ số K theo quá trình học}
+    \label{tab:k_factor}
+\end{table}
+
+Mặc dù hệ thống không triển khai đầy đủ Lý thuyết Ứng đáp Câu hỏi (Item Response Theory – IRT), mô hình Elo được xem như một dạng xấp xỉ đơn giản của mô hình IRT một tham số (1PL), trong đó năng lực người học và độ khó câu hỏi được biểu diễn bằng các tham số duy nhất. Việc sử dụng Elo giúp tránh được các bước ước lượng phức tạp trong IRT, đồng thời vẫn đáp ứng được yêu cầu đánh giá năng lực theo thời gian thực trong môi trường học tập thích ứng.
+
+\subsection{Adaptive Engine}
+Adaptive Engine là thành phần trung tâm điều phối quá trình học tập thông qua vòng lặp thích ứng khép kín (Hình \ref{fig:chapter3-adaptive-engine-flow}). Tại mỗi bước, engine xác định tập các concept "sẵn sàng học"—nơi người học đã nắm vững kiến thức tiên quyết nhưng chưa thành thạo concept hiện tại—và lựa chọn concept mục tiêu dựa trên chiến lược được cấu hình (ví dụ: ưu tiên concept yếu nhất).
+
+Sau khi xác định concept, hệ thống truy xuất Ngân hàng câu hỏi để chọn câu hỏi có độ khó tương thích nhất với mức năng lực hiện tại của người học (theo Elo). Kết quả trả lời của người học sẽ được sử dụng để cập nhật ngay lập tức giá trị năng lực, từ đó thay đổi trạng thái hệ thống và có thể mở khóa các concept tiếp theo trong đồ thị kiến thức.
+
+Cơ chế phản hồi liên tục này cho phép Adaptive Engine tạo ra lộ trình học tập được cá nhân hóa sâu sắc. Thay vì một trình tự cố định, lộ trình của mỗi học sinh sẽ phân nhánh khác nhau tùy thuộc vào tốc độ tiếp thu và độ chính xác khi làm bài, tạo cơ sở cho việc phân tích hiện tượng path divergence trong các mô phỏng của đề tài.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{graphics/chapter-3/chapter3-adaptive-engine-flow.jpg}
+    \caption{Sơ đồ hoạt động của Adaptive Engine}
+    \label{fig:chapter3-adaptive-engine-flow}
+\end{figure}
+
+\subsection{Personas}
+Để đánh giá khả năng thích ứng của hệ thống, đồ án sử dụng ba "persona" đại diện cho các mức năng lực ban đầu khác nhau: Yếu, Trung bình và Khá/Giỏi. Các persona này không mô phỏng đầy đủ tính cách cá nhân mà tập trung vào sự khác biệt về trạng thái kiến thức (Elo ban đầu) để kiểm thử phản ứng của Adaptive Engine.
+
+Với persona học sinh Yếu (Elo thấp), lộ trình học thường tuyến tính và tập trung củng cố kiến thức nền tảng. Persona Trung bình có lộ trình phân nhánh hơn, cho phép tiếp cận song song nhiều concept khi đủ điều kiện. Ngược lại, nhóm Khá/Giỏi (Elo cao) sẽ nhanh chóng lướt qua các kiến thức đã thành thạo để tập trung vào nội dung nâng cao, tạo ra lộ trình ngắn và phân nhánh mạnh nhờ sự tận dụng hiệu quả đồ thị kiến thức.
+
+Việc thiết lập các persona này giúp làm nổi bật khả năng cá nhân hóa của hệ thống. Sự khác biệt về cấu trúc lộ trình (path divergence) giữa các nhóm năng lực chính là chỉ số quan trọng để phân tích hiệu quả của thuật toán thích ứng trong các thí nghiệm mô phỏng.
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{|l|X|X|X|X|}
+        \hline
+        \textbf{Persona} & \textbf{Mức năng lực ban đầu (Elo)} & \textbf{Đặc trưng trạng thái kiến thức} & \textbf{Hành vi kỳ vọng của Adaptive Engine} & \textbf{Đặc điểm lộ trình học} \\
+        \hline
+        Học sinh yếu & Thấp hơn ngưỡng thành thạo trên hầu hết concept & Nhiều concept nền tảng chưa đạt mastery & Ưu tiên concept không có hoặc ít tiên quyết; chọn câu hỏi độ khó thấp & Lộ trình gần tuyến tính, tiến triển chậm, tập trung củng cố nền tảng \\
+        \hline
+        Học sinh trung bình & Gần ngưỡng mastery ở một số concept & Kiến thức không đồng đều giữa các concept & Mở khóa song song nhiều concept khi đủ điều kiện; chọn câu hỏi quanh mức năng lực & Lộ trình có phân nhánh rõ rệt, tiến triển ổn định \\
+        \hline
+        Học sinh khá/giỏi & Cao hơn ngưỡng mastery ở đa số concept nền tảng & Đã nắm vững kiến thức cơ bản & Bỏ qua nhanh các concept đã thành thạo; tập trung concept nâng cao & Lộ trình ngắn hơn, phân nhánh mạnh, phụ thuộc nhiều vào đồ thị kiến thức \\
+        \hline
+    \end{tabularx}
+    \caption{Đặc tả các Persona trong mô phỏng}
+    \label{tab:personas_description}
+\end{table}
 
 \section{Quy trình xử lý / pipeline}
-\blindtext
+
+\subsection{Xây dựng đồ thị kiến thức (Concept Graph)}
+Quy trình bắt đầu bằng việc xây dựng đồ thị kiến thức Toán THPT dựa trên phân phối chương trình chính thức của môn Toán lớp 10. Các khái niệm (concept) được xác định tương ứng với các đơn vị kiến thức trong chương trình học và được biểu diễn dưới dạng các nút trong đồ thị.
+
+Quan hệ tiên quyết giữa các khái niệm được xác định thông qua:
+\begin{itemize}
+    \item Phân tích logic nội dung chương trình,
+    \item Tham vấn ý kiến giáo viên Toán THPT nhằm đảm bảo tính sư phạm và tính đúng đắn chuyên môn.
+\end{itemize}
+
+Kết quả của bước này là một đồ thị có hướng, trong đó mỗi cạnh biểu diễn mối quan hệ “phải nắm vững trước” giữa hai khái niệm. Đồ thị kiến thức đóng vai trò ràng buộc cấu trúc cho toàn bộ quá trình học tập thích ứng.
+
+\subsection{Xây dựng Ngân hàng câu hỏi (Question Bank)}
+Ngân hàng câu hỏi được xây dựng từ bộ câu hỏi ôn tập chuẩn của chương trình Toán lớp 10. Mỗi câu hỏi được:
+\begin{itemize}
+    \item Gán thủ công vào đúng một concept trong đồ thị kiến thức,
+    \item Được gán nhãn độ khó ban đầu dưới dạng Elo difficulty, dựa trên phân loại mức độ nhận thức (nhận biết, thông hiểu, vận dụng).
+\end{itemize}
+
+Việc đánh nhãn được thực hiện thủ công nhằm đảm bảo:
+\begin{itemize}
+    \item Mỗi câu hỏi phản ánh đúng một đơn vị kiến thức cụ thể,
+    \item Tính nhất quán giữa nội dung câu hỏi và cấu trúc đồ thị kiến thức.
+\end{itemize}
+
+Kết quả của bước này là một ngân hàng câu hỏi có cấu trúc rõ ràng, sẵn sàng cho quá trình chọn câu hỏi thích ứng.
+
+\subsection{Khởi tạo và cập nhật mô hình đánh giá năng lực (Elo / IRT)}
+Năng lực của người học trên mỗi concept được biểu diễn bằng một giá trị Elo. Ban đầu, các giá trị Elo được khởi tạo dựa trên persona mô phỏng (yếu – trung bình – giỏi).
+
+Trong quá trình học:
+\begin{itemize}
+    \item Xác suất trả lời đúng được tính theo hàm logistic của Elo,
+    \item Giá trị Elo được cập nhật sau mỗi câu hỏi dựa trên kết quả trả lời và hệ số K động.
+\end{itemize}
+
+Các nguyên tắc của Lý thuyết Ứng đáp Câu hỏi (IRT) được tham khảo để:
+\begin{itemize}
+    \item Hiệu chỉnh cách gán độ khó câu hỏi,
+    \item Tuning các tham số (K-factor, mastery threshold) thông qua các thí nghiệm độ nhạy (sensitivity analysis / grid search).
+\end{itemize}
+
+Bước này nhằm đảm bảo mô hình Elo phản ánh hợp lý sự thay đổi năng lực của người học trong môi trường học tập liên tục.
+
+\subsection{Vận hành Adaptive Learning Engine}
+Tại mỗi bước học tập, Adaptive Learning Engine thực hiện các thao tác sau:
+\begin{itemize}
+    \item Xác định tập các concept “sẵn sàng học” dựa trên đồ thị kiến thức và trạng thái mastery hiện tại.
+    \item Lựa chọn concept mục tiêu theo chiến lược thích ứng (ví dụ: concept có Elo thấp nhất trong tập sẵn sàng).
+    \item Chọn câu hỏi có độ khó gần nhất với năng lực hiện tại của người học.
+    \item Ghi nhận kết quả trả lời và cập nhật lại mô hình Elo.
+\end{itemize}
+
+Quy trình này được lặp lại theo dạng vòng lặp khép kín, cho phép hệ thống điều chỉnh lộ trình học tập theo thời gian thực.
+
+\subsection{Sinh và phân tích lộ trình học tập}
+Từ quá trình vận hành trên, hệ thống sinh ra chuỗi các concept và câu hỏi được học theo thời gian. Các lộ trình này được phân tích để:
+\begin{itemize}
+    \item So sánh sự khác biệt giữa các persona người học,
+    \item Đánh giá mức độ phân nhánh (path divergence) của lộ trình học tập,
+    \item Làm cơ sở cho phần đánh giá và thảo luận kết quả ở các chương sau.
+\end{itemize}
 
 \section{Giả định và hạn chế của phương pháp}
-\blindtext
+\subsection{Giả định}
+Phương pháp học tập thích ứng được đề xuất trong đề tài được xây dựng dựa trên một số giả định cơ bản. Trước hết, đề tài giả định rằng cấu trúc kiến thức Toán THPT có thể được phân rã thành các đơn vị khái niệm tương đối độc lập và mô hình hóa dưới dạng đồ thị kiến thức có hướng, trong đó các cạnh phản ánh mối quan hệ tiên quyết giữa các khái niệm. Đồng thời, mỗi câu hỏi trong ngân hàng câu hỏi được giả định là phản ánh chủ yếu một khái niệm cụ thể trong đồ thị, cho phép gán nhãn thủ công một–một giữa câu hỏi và concept. Cuối cùng, mô hình Elo được giả định là một xấp xỉ thống kê hợp lý để biểu diễn và cập nhật năng lực người học theo thời gian, đủ đáp ứng mục tiêu mô phỏng và phân tích lộ trình học tập thích ứng trong phạm vi nghiên cứu của đề tài.
+\subsection{Hạn chế}
+Bên cạnh các giả định nêu trên, phương pháp đề xuất vẫn tồn tại một số hạn chế nhất định. Trước hết, chất lượng của lộ trình học tập sinh ra phụ thuộc mạnh vào độ chính xác của đồ thị kiến thức, trong đó việc xác định các quan hệ tiên quyết phần nào mang tính chủ quan và phụ thuộc vào ý kiến chuyên gia. Ngoài ra, đề tài mới được triển khai và đánh giá trong phạm vi môn Toán lớp 10 với tập câu hỏi và hồ sơ người học mô phỏng, do đó chưa phản ánh đầy đủ sự đa dạng về hành vi học tập trong môi trường thực tế. Phương pháp cũng chưa xem xét các yếu tố phi nhận thức như động lực học tập, sự mệt mỏi hay khả năng bỏ cuộc của người học, vốn có thể ảnh hưởng đến hiệu quả của hệ thống học tập thích ứng trong các bối cảnh triển khai thực tế.
