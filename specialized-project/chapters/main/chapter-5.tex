@@ -1,13 +1,32 @@
 \chapter{DEMO / PROTOTYPE MINH HỌA}
 
 \section{Mục đích và phạm vi demo}
-\blindtext
+Sản phẩm được xây dựng là một \textbf{MVP (Minimum Viable Product)} nhằm mục đích kiểm chứng tính khả thi của mô hình Adaptive Learning Engine trên nền tảng web. Phạm vi của ứng dụng tập trung vào các tính năng cốt lõi nhất để vận hành thuật toán gợi ý và trực quan hóa dữ liệu năng lực, chưa bao gồm các tính năng quản lý lớp học phức tạp.
 
 \section{Kiến trúc demo ở mức tổng quan}
-\blindtext
+Hệ thống được xây dựng theo kiến trúc 3 tầng hiện đại:
+\begin{itemize}
+    \item \textbf{Frontend:} ReactJS (Vite) cung cấp giao diện tương tác mượt mà.
+    \item \textbf{Backend:} FastAPI (Python) đóng vai trò API Server, xử lý logic chọn câu hỏi và cập nhật Elo.
+    \item \textbf{Database:} Sử dụng nền tảng \textbf{Supabase} (PostgreSQL) để quản lý dữ liệu người dùng và đồ thị kiến thức bền vững.
+\end{itemize}
 
 \section{Mô tả các chức năng chính của demo}
-\blindtext
+Dựa trên giao diện thực tế của ứng dụng, các chức năng chính được chia thành hai phân hệ:
+
+\textbf{1. Phân hệ Học sinh (Student Dashboard):}
+\begin{itemize}
+    \item \textbf{Hồ sơ Năng lực (Learning Profile):} Sử dụng biểu đồ tròn (Circular Progress) để hiển thị phần trăm mức độ thành thạo tổng quan trên toàn bộ chương trình, kèm theo chỉ số Elo trung bình hiện tại.
+    \item \textbf{Bản đồ Học tập (Learning Map):} Danh sách các bài học được tổ chức phân cấp theo chương (kết cấu Accordion). Mỗi bài học hiển thị rõ trạng thái (đã khóa, sẵn sàng học, đã thành thạo) và thanh tiến độ riêng biệt.
+    \item \textbf{Gợi ý thông minh:} Hệ thống hiển thị thẻ bài học "Next Recommended Concept" nổi bật. Tại đây, chiến lược \textbf{Lowest\_Elo} được minh bạch hóa thông qua dòng giải thích lý do gợi ý: \textit{"Why this concept? This is your weakest ready concept"} (Đây là khái niệm sẵn sàng mà bạn đang yếu nhất), giúp học sinh hiểu rõ lộ trình cá nhân hóa của mình.
+\end{itemize}
+
+\textbf{2. Phân hệ Giáo viên (Teacher Analytics):}
+\begin{itemize}
+    \item \textbf{Tổng quan lớp học:} Giao diện dạng danh sách thẻ (Card list) cho phép giáo viên chọn nhanh từng hồ sơ học sinh để xem chi tiết.
+    \item \textbf{Quỹ đạo học tập (Learning Trajectory):} Biểu đồ đường (Line Chart) trực quan hóa quá trình học tập theo từng bước (Step). Biểu đồ đối sánh hai đường dữ liệu quan trọng: đường màu tím thể hiện Năng lực học sinh (Student Mastery) và đường màu vàng nét đứt thể hiện Độ khó câu hỏi (Question Diff). Sự tương quan này giúp giáo viên nhận diện ngay lập tức xu hướng tiến bộ hoặc dấu hiệu chững lại của học sinh.
+    \item \textbf{Nhật ký chi tiết (Session Log):} Bảng dữ liệu ghi lại kết quả từng câu trả lời, độ khó và mức thay đổi Elo, phục vụ cho việc tra cứu sâu.
+\end{itemize}
 
 \section{Nhận xét và đánh giá}
-\blindtext
+Thông qua quá trình kiểm thử thủ công (Manual Testing), hệ thống MVP hoạt động ổn định và phản hồi chính xác. Các biểu đồ trực quan như Learning Trajectory giúp "số hóa" được quá trình nhận thức của học sinh, biến các con số thống kê khô khan thành thông tin hữu ích cho việc ra quyết định sư phạm.
